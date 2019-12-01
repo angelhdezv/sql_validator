@@ -1,16 +1,19 @@
+<br>
 <div class="row">
-  <div class="col-4 bg-dark text-white">
-  <h2 class="display-4">
-  Comandos de inserción
-  </h1>
+  <div class="col-4 bg-secondary " style="border-radius: 15px;">
+    <div class="bg-light" style="border-radius: 15px;">
+        <h2 class="display-4 text-dark">
+            Comandos de inserción
+        </h2>
+    </div>
   </div>
   <div class="col-8">
   <h1>Welcome#index</h1>
     <p>Find me in app/views/welcome/index.html.erb</p>
     <form class="form-group my-2 my-lg-0 text-center">
-        <textarea  class="form-control mr-sm-2" rows="5" placeholder="COMANDO SQL" aria-label="COMANDO SQL"></textarea>
+        <textarea id="pre1" class="form-control mr-sm-2" rows="5" placeholder="COMANDO SQL" aria-label="COMANDO SQL"></textarea>
         <br>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="validar()">Search</button>
     </form>
 
     <br>
@@ -22,6 +25,27 @@
     </div>
   </div>
 </div>
+<script src="/sql/dist/parser/sqlParser.js"></script>
+<script>
+function validar(){
+    var  SQLParser = window.sqlParser;
+    var qqq=document.getElementById("pre1").value;
+    
+    try {
+        SQLParser.parse(qqq);
+        console.log(qqq);
+        alert("Correcto");
+        
+    }
+    catch (err) {
+        console.log(qqq);
+        console.log(err);
+        alert("Error");
+    }
+    
+}
+</script>
+
 
 
 
