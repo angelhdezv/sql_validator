@@ -1,48 +1,121 @@
 <br>
 <div class="row">
-  <div class="col-4 bg-secondary " style="border-radius: 15px;">
+  <div class="col-4 bg-info " style="border-radius: 15px;height:600px; overflow: auto">
+  <br>
     <div class="bg-light" style="border-radius: 15px;">
-        <h2 class="display-4 text-dark">
+        <h4 class="text-dark">
             Comandos de inserción
-        </h2>
+        </h4>
     </div>
+    <br>
+    <h4 class="text-light">
+      Tablas
+      </h4>
+    <div class="bg-info row" id="capa" style="border-radius: 15px;">
+    
+ 
+       
+    </div>
+    <h4 class="text-light">
+      Instrucciones
+      </h4>
+    <div class="bg-info row" id="cap1" style="border-radius: 15px;">
+    
+ 
+       
+    </div>
+    <h4 class="text-light">
+      Condiciones
+      </h4>
+    <div class="bg-info row" id="cap2" style="border-radius: 15px;">
+    
+ 
+       
+    </div>
+    <br>
   </div>
   <div class="col-8">
-  <h1>Welcome#index</h1>
-    <p>Find me in app/views/welcome/index.html.erb</p>
+  <h1>Hola</h1>
+    <p>Esta aplicacion solo es una herramienta para la evaluacion de una Consulta SQL</p>
+    <p>Agregar una tabla</p>
+    <form class="form-inline my-2 my-lg-0">
+      <input id="tabla" class="form-control mr-sm-2" type="search" placeholder="Nombre de la tabla" aria-label="Nombre de la tabla">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="tool()">Agregar +</button>
+    </form>
+    <br>
+    <p>Query</p>
     <form class="form-group my-2 my-lg-0 text-center">
-        <textarea id="pre1" class="form-control mr-sm-2" rows="5" placeholder="COMANDO SQL" aria-label="COMANDO SQL"></textarea>
+        <textarea id="pre1" class="form-control mr-sm-2" rows="5" placeholder="COMANDO SQL" aria-label="COMANDO SQL"></textarea >
         <br>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="validar()">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="validar()">Revisar</button>
     </form>
 
     <br>
-    <div class="alert alert-success" role="alert">
-    A simple success alert—check it out!
+    <div class="alert alert-success" role="alert" style="display:none;" id="uno">
+    Query correcta
     </div>
-    <div class="alert alert-danger" role="alert">
-    A simple danger alert—check it out!
+    <div class="alert alert-danger" role="alert" style="display:none;" id="dos">
+    Error en tu Query: Revisa tu manual SQL
     </div>
   </div>
 </div>
 <script src="/sql/dist/parser/sqlParser.js"></script>
 <script>
+    var tablas=['db_Test1']
+    var capa = document.getElementById("capa");
+    for (var i = 0; i < tablas.length; i++) {
+      var h1 = document.createElement("div");
+      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-secondary'>"+tablas[i]+"</button></div>";
+      capa.appendChild(h1);
+    }
+    var instrucciones=['having','order by', 'limit','group by']
+    var capa = document.getElementById("cap1");
+    for (var i = 0; i < instrucciones.length; i++) {
+      var h1 = document.createElement("div");
+      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-danger'>"+instrucciones[i]+"</button></div>";
+      capa.appendChild(h1);
+    }
+    var condiciones=['where', 'on', 'where exists','where not exists']
+    var capa = document.getElementById("cap2");
+    for (var i = 0; i < condiciones.length; i++) {
+      var h1 = document.createElement("div");
+      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-light'>"+condiciones[i]+"</button></div>";
+      capa.appendChild(h1);
+    }
+    
+
 function validar(){
     var  SQLParser = window.sqlParser;
     var qqq=document.getElementById("pre1").value;
     
+  
+
+    
     try {
         SQLParser.parse(qqq);
         console.log(qqq);
-        alert("Correcto");
+        document.getElementById('dos').style.display = 'none';
+        document.getElementById('uno').style.display = 'inline';
         
     }
     catch (err) {
         console.log(qqq);
-        console.log(err);
-        alert("Error");
+        document.getElementById('uno').style.display = 'none';
+        document.getElementById('dos').style.display = 'inline';
+        alert(err);
+      
     }
     
+}
+
+function tool(){
+  var text= document.getElementById("tabla").value;
+  var capa = document.getElementById("capa");
+    
+      var h1 = document.createElement("div");
+      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-secondary'>"+text+"</button></div>";
+      capa.appendChild(h1);
+  
 }
 </script>
 
