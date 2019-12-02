@@ -48,6 +48,7 @@
         <textarea id="pre1" class="form-control mr-sm-2" rows="5" placeholder="COMANDO SQL" aria-label="COMANDO SQL"></textarea >
         <br>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="validar()">Revisar</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="borrar()">Borrar</button>
     </form>
 
     <br>
@@ -65,21 +66,21 @@
     var capa = document.getElementById("capa");
     for (var i = 0; i < tablas.length; i++) {
       var h1 = document.createElement("div");
-      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-secondary'>"+tablas[i]+"</button></div>";
+      h1.innerHTML="<div class='col'><input type='button' class='btn btn-outline-secondary' onclick='t(this.value)' value='"+tablas[i]+"'>";
       capa.appendChild(h1);
     }
     var instrucciones=['having','order by', 'limit','group by']
     var capa = document.getElementById("cap1");
     for (var i = 0; i < instrucciones.length; i++) {
       var h1 = document.createElement("div");
-      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-danger'>"+instrucciones[i]+"</button></div>";
+      h1.innerHTML="<div class='col'><input type='button' class='btn btn-outline-danger' onclick='ins(this.value)' value='"+instrucciones[i]+"'>";
       capa.appendChild(h1);
     }
     var condiciones=['where', 'on', 'where exists','where not exists']
     var capa = document.getElementById("cap2");
     for (var i = 0; i < condiciones.length; i++) {
       var h1 = document.createElement("div");
-      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-light'>"+condiciones[i]+"</button></div>";
+      h1.innerHTML="<div class='col'><input type='button' class='btn btn-outline-light' onclick='c(this.value)' value='"+condiciones[i]+"'>";
       capa.appendChild(h1);
     }
     
@@ -113,8 +114,34 @@ function tool(){
   var capa = document.getElementById("capa");
     
       var h1 = document.createElement("div");
-      h1.innerHTML="<div class='col'><button type='button' class='btn btn-outline-secondary'>"+text+"</button></div>";
+      h1.innerHTML="<div class='col'><input type='button' class='btn btn-outline-secondary' onclick='t(this.value)' value='"+text+"'>";
       capa.appendChild(h1);
+  
+}
+function t(tabla){
+  var text= document.getElementById("pre1").value;
+  if(text==""){
+    document.getElementById("pre1").value="Select * from "+tabla+" ";
+  }else{
+    document.getElementById("pre1").value=text+tabla+" ";
+  }
+ 
+  
+}
+function ins(instruccion){
+    var text= document.getElementById("pre1").value;
+document.getElementById("pre1").value=text+instruccion+" ";
+   
+  
+}
+function c(condicion){
+    var text= document.getElementById("pre1").value;
+  document.getElementById("pre1").value=text+condicion+" [condicion]='[valor]' ";
+  
+}
+function borrar(){
+    
+  document.getElementById("pre1").value="";
   
 }
 </script>
